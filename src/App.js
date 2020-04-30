@@ -7,12 +7,16 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      lists: [
-        { title: 'Go to school', isComplete: true},
-        { title: 'Take a shower', isComplete: true},
-        { title: 'Do homework', isComplete: false},
-        { title: 'Go to bed', isComplete: false}
-      ]
+      lists: []
+    }
+  }
+
+  componentDidMount(){
+    if(localStorage.getItem('lists')){
+      let lists = JSON.parse(localStorage.getItem('lists'));
+      this.setState({
+        lists: lists
+      })
     }
   }
 
@@ -20,7 +24,7 @@ class App extends Component {
     return (event) => {
       const isComplete = item.isComplete;
       const lists = this.state.lists;
-      const index = lists.indexOf(item)
+      // const index = lists.indexOf(item);
 
       this.setState({
         // lists: [
@@ -34,31 +38,52 @@ class App extends Component {
         
         lists: lists.map( i => (i === item) ? {...i, isComplete: !isComplete} : {...i} )
       })
-
     }
   }
 
   onSubmit = (value) => {
-    const lists = this.state.lists;
-    this.setState({
-      lists: [...lists, value]
-    })
+      const lists = this.state.lists;
+      this.setState({
+        lists: [...lists, value]
+      })
+
+    localStorage.setItem('lists', JSON.stringify(lists));
   }
+
+  deleteItem = (value) => {
+      const lists = this.state.lists;
+      const index = lists.indexOf(value);
+      lists.splice(index,1);
+
+      this.setState({
+        lists: lists
+      })
+
+      localStorage.setItem('lists', JSON.stringify(lists));
+  }
+
 
 
   render() {
     const lists = this.state.lists;
     const result = lists.map((item,index) => {
-      return  <span
-                className={(item.isComplete === false) ? 'clickItem' : ''}
-                key={index}
-                onClick={this.onItemClick(item)}
-              > {item.title}
-              </span>
+        return  <div className="result"        
+                    key={index} 
+                >
+                    <div
+                      className={(item.isComplete === false) ? 'item checkItem' : 'item'}
+                      onClick={this.onItemClick(item)}
+                    >
+                      <i className="fas fa-check-circle"></i>
+                      <span>{item.title}</span>
+                    </div>
+                    <i className="far fa-times-circle" onClick={() => this.deleteItem(item)}></i>
+                </div>
+                  
     })
     return (
       <div className="App">
-        <h1>Home page</h1>
+        <h1>todos</h1>
         <Card body>
             <TaskForm onSubmit={this.onSubmit} />
             {result}

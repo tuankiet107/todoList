@@ -7,17 +7,50 @@
 .App {
   margin: 30px auto;
   width: 400px;
-  text-align: center;
+  /* text-align: center; */
   box-shadow:20px 20px 50px grey; 
+}
+.App h1 {
+  text-align: center;
+}
+
+.result {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.item .fa-check-circle {
+  color: green;
+  margin-right: 10px;
 }
 
 span {
   width: 100%;
   padding: 8px;
   display: block;
-  margin: auto;
+
   border-bottom: 1px solid rgb(221, 220, 220);
 }
-.clickItem {
+.checkItem {
   color: rgb(204, 200, 200)
 }
+.checkItem > .fa-check-circle {
+  color: rgb(204, 200, 200)
+}
+
+.fa-times-circle {
+  cursor: pointer;
+  color: rgb(204, 200, 200)
+}
+.fa-times-circle:hover {
+  color: black
+}
+
+
+

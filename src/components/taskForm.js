@@ -10,7 +10,7 @@ class taskForm extends Component {
         }
     }
 
-    handChange = (e) => {
+    handleChange = (e) => {
         this.setState({
             value: {title: e.target.value, isComplete: Math.random() >= 0.5}
         })
@@ -24,17 +24,17 @@ class taskForm extends Component {
     render() {
         
         return (
-            <Form onSubmit={this.handleSubmit}>
+            <Form onSubmit={this.handleSubmit} >
                 <FormGroup>
                 <InputGroup>
                     <Input 
                         type="text" 
                         name="name" 
                         placeholder="Nhập công việc..." 
-                        onChange={this.handChange}
+                        onChange={this.handleChange}
                     />
                     <InputGroupAddon addonType="append">
-                    <Button color="secondary">Add</Button>
+                    <Button color="primary">Add</Button>
                     </InputGroupAddon>
                 </InputGroup>
                 </FormGroup>
